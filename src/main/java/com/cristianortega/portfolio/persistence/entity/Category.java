@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.persistence.entity;
 
 import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +28,20 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private Section section;
 
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY)
+    @JsonIgnore
     public List<Certificate> certificates;
 
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<Portfolio> portfolios;
+
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY)
+    @JsonIgnore
     public List<Experience> experiences;
+
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<Skill> skills;
 
 }

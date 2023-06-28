@@ -1,6 +1,5 @@
 package com.cristianortega.portfolio.web.controller;
 
-import com.cristianortega.portfolio.persistence.entity.Knowlegde;
 import com.cristianortega.portfolio.persistence.entity.Portfolio;
 import com.cristianortega.portfolio.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;

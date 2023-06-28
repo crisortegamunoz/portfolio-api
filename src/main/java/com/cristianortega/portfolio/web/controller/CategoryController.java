@@ -18,11 +18,19 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
     @GetMapping
     public ResponseEntity<List<Category>> getAll() {
         return this.categoryService.getAll()
                 .map(categories -> new ResponseEntity<>(categories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> findById(@PathVariable Integer id) {
+        return this.categoryService.findById(id)
+                .map(category -> new ResponseEntity<>(category, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @PostMapping

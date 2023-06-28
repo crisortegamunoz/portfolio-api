@@ -16,24 +16,35 @@ public class Skill {
     @Column(name = "id_skill", nullable = false)
     private Integer idSkill;
 
-    @Column(name = "id_technology", nullable = false)
+    @Column(name = "id_technology")
     private Integer idTechnology;
+
+    @Column(name = "id_category", nullable = false)
+    private Integer idCategory;
 
     @Column(nullable = false, columnDefinition = "TINYINT")
     private Boolean available;
 
-    @Column(nullable = false)
+    @Column(length = 60)
+    private String name;
+
+    @Column
     private Integer percentage;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 300)
     private String css;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 300)
     private String style;
 
     @ManyToOne
     @JoinColumn(name = "id_technology", referencedColumnName = "id_technology", insertable = false, updatable = false)
     @JsonIgnore
     private Technology technology;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category", referencedColumnName = "id_category", insertable = false, updatable = false)
+    @JsonIgnore
+    private Category category;
 
 }

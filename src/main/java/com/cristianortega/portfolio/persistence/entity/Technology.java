@@ -1,5 +1,6 @@
 package com.cristianortega.portfolio.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,15 +23,18 @@ public class Technology {
     @Column(nullable = false, length = 40)
     private String name;
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String version;
 
-    @OneToMany(mappedBy="technology")
+    @OneToMany(mappedBy="technology", fetch = FetchType.LAZY)
+    @JsonIgnore
     public List<Skill> skills;
 
-    @ManyToMany(mappedBy = "portfolioTechnologies")
+    @ManyToMany(mappedBy = "portfolioTechnologies", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Portfolio> portfolios;
 
-    @ManyToMany(mappedBy = "experienceTechnologies")
+    @ManyToMany(mappedBy = "experienceTechnologies", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Experience> experiences;
 }
