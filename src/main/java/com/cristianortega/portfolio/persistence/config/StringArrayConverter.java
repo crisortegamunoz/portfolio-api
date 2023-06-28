@@ -1,4 +1,4 @@
-package com.cristianortega.portfolio.util;
+package com.cristianortega.portfolio.persistence.config;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

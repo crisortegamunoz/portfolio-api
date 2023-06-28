@@ -1,6 +1,6 @@
 package com.cristianortega.portfolio.persistence.entity;
 
-import com.cristianortega.portfolio.util.StringArrayConverter;
+import com.cristianortega.portfolio.persistence.config.StringArrayConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;

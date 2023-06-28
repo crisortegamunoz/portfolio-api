@@ -33,6 +33,9 @@ public class AboutBox {
     @Column(nullable = false, length = 300)
     private String image;
 
+    @Column(nullable = false)
+    private Integer order;
+
     @ManyToOne
     @JoinColumn(name = "id_about", referencedColumnName = "id_about", insertable = false, updatable = false)
     @JsonIgnore

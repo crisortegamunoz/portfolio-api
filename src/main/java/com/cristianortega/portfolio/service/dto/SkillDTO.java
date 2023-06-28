@@ -1,12 +1,7 @@
-package com.cristianortega.portfolio.domain.dto;
+package com.cristianortega.portfolio.service.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@NoArgsConstructor
-@Getter
-@Setter
+import lombok.Data;
+@Data
 public class SkillDTO {
 
     private Integer id;
