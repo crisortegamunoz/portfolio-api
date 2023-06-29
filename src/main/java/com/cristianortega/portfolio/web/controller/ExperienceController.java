@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.web.controller;
 
-import com.cristianortega.portfolio.persistence.entity.Experience;
+import com.cristianortega.portfolio.domain.dto.ExperienceDTO;
+import com.cristianortega.portfolio.domain.service.ExperienceDTOService;
 import com.cristianortega.portfolio.service.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +15,25 @@ import java.util.List;
 public class ExperienceController {
 
     private final ExperienceService experienceService;
+    private final ExperienceDTOService experienceDTOService;
     @Autowired
-    public ExperienceController(ExperienceService experienceService) {
+    public ExperienceController(ExperienceService experienceService,
+                                ExperienceDTOService experienceDTOService) {
         this.experienceService = experienceService;
+        this.experienceDTOService = experienceDTOService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Experience>> getAll() {
-        return this.experienceService.getAll()
+    public ResponseEntity<List<ExperienceDTO>> getAll() {
+        return this.experienceDTOService.getAll()
                 .map(experiences -> new ResponseEntity<>(experiences, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Experience> save(@RequestBody Experience experience) {
-        if (experience.getIdExperience() == null || !this.experienceService.exists(experience.getIdExperience())) {
-            return this.experienceService.save(experience)
+    public ResponseEntity<ExperienceDTO> save(@RequestBody ExperienceDTO experienceDTO) {
+        if (experienceDTO.getId() == null || !this.experienceService.exists(experienceDTO.getId())) {
+            return this.experienceDTOService.save(experienceDTO)
                     .map(experienceSaved -> new ResponseEntity<>(experienceSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
@@ -37,9 +41,9 @@ public class ExperienceController {
     }
 
     @PutMapping
-    public ResponseEntity<Experience> update(@RequestBody Experience experience) {
-        if (experience.getIdExperience() != null && this.experienceService.exists(experience.getIdExperience())) {
-            return this.experienceService.save(experience)
+    public ResponseEntity<ExperienceDTO> update(@RequestBody ExperienceDTO experienceDTO) {
+        if (experienceDTO.getId() != null && this.experienceService.exists(experienceDTO.getId())) {
+            return this.experienceDTOService.save(experienceDTO)
                     .map(experienceSaved -> new ResponseEntity<>(experienceSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }

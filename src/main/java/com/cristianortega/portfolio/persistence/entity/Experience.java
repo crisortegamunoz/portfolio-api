@@ -39,7 +39,7 @@ public class Experience {
 
     @Convert(converter = StringArrayConverter.class)
     @Column(name = "responsabilities", columnDefinition = "TEXT", nullable = false)
-    private String[] responsabilities;
+    private String[] responsibilities;
 
     @Column(name = "start_date", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime startDate;

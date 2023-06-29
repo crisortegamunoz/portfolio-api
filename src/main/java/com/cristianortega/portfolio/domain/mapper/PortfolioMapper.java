@@ -14,7 +14,6 @@ import java.util.List;
 public interface PortfolioMapper {
 
     PortfolioMapper INSTANCE = Mappers.getMapper(PortfolioMapper.class);
-
     @Mappings({
             @Mapping(source = "idPortfolio", target = "id"),
             @Mapping(source = "name", target = "portfolioName"),

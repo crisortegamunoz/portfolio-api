@@ -20,12 +20,19 @@ public class About {
     @Column(name = "id_about", nullable = false)
     private Integer idAbout;
 
+    @Column(nullable = false, length = 40)
+    private String title;
+
     @Convert(converter = StringArrayConverter.class)
     @Column(nullable = false, length = 4000)
-    private String[] description;
+    private String[] descriptions;
 
-    @OneToMany(mappedBy = "about", fetch = FetchType.EAGER)
-    private List<AboutBox> boxes;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "about_boxes",
+            joinColumns = @JoinColumn(name = "id_about"),
+            inverseJoinColumns = @JoinColumn(name = "id_aboutbox"))
+    private List<AboutBox> aboutBoxes;
 
 
 }

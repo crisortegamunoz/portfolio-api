@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.web.controller;
 
-import com.cristianortega.portfolio.persistence.entity.About;
+import com.cristianortega.portfolio.domain.dto.AboutDTO;
+import com.cristianortega.portfolio.domain.service.AboutDTOService;
 import com.cristianortega.portfolio.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +15,25 @@ import java.util.List;
 public class AboutController {
 
     private final AboutService aboutService;
+    private final AboutDTOService aboutDTOService;
     @Autowired
-    public AboutController(AboutService aboutService) {
+    public AboutController(AboutService aboutService,
+                           AboutDTOService aboutDTOService) {
         this.aboutService = aboutService;
+        this.aboutDTOService = aboutDTOService;
     }
 
     @GetMapping
-    public ResponseEntity<List<About>> getAll() {
-        return this.aboutService.getAll()
+    public ResponseEntity<List<AboutDTO>> getAll() {
+        return this.aboutDTOService.getAll()
                 .map(abouts -> new ResponseEntity<>(abouts, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<About> save(@RequestBody About about) {
-        if (about.getIdAbout() == null || !this.aboutService.exists(about.getIdAbout())) {
-            return this.aboutService.save(about)
+    public ResponseEntity<AboutDTO> save(@RequestBody AboutDTO aboutDTO) {
+        if (aboutDTO.getId() == null || !this.aboutService.exists(aboutDTO.getId())) {
+            return this.aboutDTOService.save(aboutDTO)
                     .map(aboutSaved -> new ResponseEntity<>(aboutSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
@@ -37,9 +41,9 @@ public class AboutController {
     }
 
     @PutMapping
-    public ResponseEntity<About> update(@RequestBody About about) {
-        if (about.getIdAbout() != null && this.aboutService.exists(about.getIdAbout())) {
-            return this.aboutService.save(about)
+    public ResponseEntity<AboutDTO> update(@RequestBody AboutDTO aboutDTO) {
+        if (aboutDTO.getId() != null && this.aboutService.exists(aboutDTO.getId())) {
+            return this.aboutDTOService.save(aboutDTO)
                     .map(aboutSaved -> new ResponseEntity<>(aboutSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }

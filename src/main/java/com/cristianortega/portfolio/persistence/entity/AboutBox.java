@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "about_box")
 @Getter
@@ -18,13 +20,10 @@ public class AboutBox {
     @Column(name = "id_aboutbox", nullable = false)
     private Integer idAboutBox;
 
-    @Column(name = "id_about", nullable = false)
-    private Integer idAbout;
-
     @Column(nullable = false, length = 40)
     private String title;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 300)
     private String description;
 
     @Column(nullable = false, length = 200)
@@ -34,11 +33,10 @@ public class AboutBox {
     private String image;
 
     @Column(nullable = false)
-    private Integer order;
+    private Integer orderDisplay;
 
-    @ManyToOne
-    @JoinColumn(name = "id_about", referencedColumnName = "id_about", insertable = false, updatable = false)
+    @ManyToMany(mappedBy = "aboutBoxes", fetch = FetchType.LAZY)
     @JsonIgnore
-    private About about;
+    private List<About> abouts;
 
 }

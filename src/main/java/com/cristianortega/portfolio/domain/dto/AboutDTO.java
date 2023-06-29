@@ -9,8 +9,7 @@ import java.util.List;
 public class AboutDTO {
 
     private Integer id;
-    @JsonIgnore
-    private String description;
+    private String title;
     private String[] descriptions;
     private List<BoxDTO> boxes;
 
