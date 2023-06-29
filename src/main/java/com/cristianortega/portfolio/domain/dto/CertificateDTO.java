@@ -1,4 +1,4 @@
-package com.cristianortega.portfolio.service.dto;
+package com.cristianortega.portfolio.domain.dto;
 
 import lombok.Data;
 
@@ -13,7 +13,6 @@ public class CertificateDTO {
     private String imgUrl;
     private String entityName;
     private LocalDateTime completed;
-    private Integer categoryId;
-    private String categoryName;
+    private CategoryDTO category;
 
 }

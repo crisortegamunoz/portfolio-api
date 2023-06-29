@@ -1,4 +1,4 @@
-package com.cristianortega.portfolio.service.dto;
+package com.cristianortega.portfolio.domain.dto;
 
 import lombok.Data;
 @Data
@@ -10,7 +10,7 @@ public class SkillDTO {
     private Integer percentage;
     private String cssClass;
     private String cssStyle;
-    private Integer technologyId;
-    private Integer categoryId;
+    private TechnologyDTO technology;
+    private CategoryDTO category;
 
 }

@@ -1,4 +1,4 @@
-package com.cristianortega.portfolio.service.dto;
+package com.cristianortega.portfolio.domain.dto;
 
 import lombok.Data;
 

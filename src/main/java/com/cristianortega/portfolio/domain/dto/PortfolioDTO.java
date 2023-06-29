@@ -1,9 +1,10 @@
-package com.cristianortega.portfolio.service.dto;
+package com.cristianortega.portfolio.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class PortfolioDTO {
@@ -20,6 +21,6 @@ public class PortfolioDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private LocalDateTime publishDate;
-    private Integer categoryId;
-    private String categoryName;
+    private List<TechnologyDTO> technology;
+    private CategoryDTO category;
 }
