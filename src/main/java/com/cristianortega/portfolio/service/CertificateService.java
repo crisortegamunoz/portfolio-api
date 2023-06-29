@@ -33,7 +33,7 @@ public class CertificateService {
         }
     }
 
-    public Optional<Certificate> findById(Integer id) {
+    public Optional<Certificate> getById(Integer id) {
         return certificateRepository.findById(id);
     }
 

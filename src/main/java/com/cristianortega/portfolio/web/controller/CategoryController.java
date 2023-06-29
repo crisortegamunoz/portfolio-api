@@ -27,7 +27,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> findById(@PathVariable Integer id) {
-        return this.categoryService.findById(id)
+        return this.categoryService.getById(id)
                 .map(category -> new ResponseEntity<>(category, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }

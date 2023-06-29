@@ -30,4 +30,7 @@ public class ExperienceDTOService {
                 .map(ExperienceMapper.INSTANCE::toExperienceDTO);
     }
 
+    public Optional<ExperienceDTO> getById(int id) {
+        return this.experienceService.getById(id).map(ExperienceMapper.INSTANCE::toExperienceDTO);
+    }
 }

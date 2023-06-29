@@ -31,9 +31,6 @@ public class AboutBoxService {
         });
         return Optional.of(boxes);
     }
-
-
-
     public Optional<AboutBox> update(AboutBox aboutBox) {
         if (exists(aboutBox.getIdAboutBox())) {
             return Optional.of(aboutBoxRepository.save(aboutBox));
@@ -41,15 +38,12 @@ public class AboutBoxService {
             return Optional.empty();
         }
     }
-
-    public Optional<AboutBox> findById(Integer id) {
+    public Optional<AboutBox> getById(Integer id) {
         return aboutBoxRepository.findById(id);
     }
-
     public void delete(Integer id) {
         this.aboutBoxRepository.deleteById(id);
     }
-
     public boolean exists(Integer id) {
         return this.aboutBoxRepository.existsById(id);
     }

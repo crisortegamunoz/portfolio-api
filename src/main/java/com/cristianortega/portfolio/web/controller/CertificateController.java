@@ -40,7 +40,6 @@ public class CertificateController {
         }
         return ResponseEntity.badRequest().build();
     }
-
     @PutMapping
     public ResponseEntity<CertificateDTO> update(@RequestBody CertificateDTO certificate) {
         if (certificate.getId() != null && this.certificateService.exists(certificate.getId())) {
@@ -50,7 +49,6 @@ public class CertificateController {
         }
         return ResponseEntity.badRequest().build();
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         if (this.certificateService.exists(id)) {
@@ -58,6 +56,12 @@ public class CertificateController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<CertificateDTO> getById(@PathVariable int id) {
+        return this.certificateDTOService.getById(id)
+                .map(certificateDTO -> new ResponseEntity<>(certificateDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 }

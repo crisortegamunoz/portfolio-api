@@ -31,7 +31,7 @@ public class CategoryService {
         }
     }
 
-    public Optional<Category> findById(Integer id) {
+    public Optional<Category> getById(Integer id) {
         return categoryRepository.findById(id);
     }
 

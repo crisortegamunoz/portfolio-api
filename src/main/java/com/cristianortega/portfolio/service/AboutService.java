@@ -32,7 +32,7 @@ public class AboutService {
         }
     }
 
-    public Optional<About> findById(Integer id) {
+    public Optional<About> getById(Integer id) {
         return aboutRepository.findById(id);
     }
 
@@ -43,4 +43,6 @@ public class AboutService {
     public boolean exists(Integer id) {
         return this.aboutRepository.existsById(id);
     }
+
+
 }

@@ -30,4 +30,8 @@ public class PortfolioDTOService {
         return this.portfolioService.save(PortfolioMapper.INSTANCE.toPortfolio(portfolioDTO))
                 .map(PortfolioMapper.INSTANCE::toPortfolioDTO);
     }
+
+    public Optional<PortfolioDTO> getById(int id) {
+        return this.portfolioService.getById(id).map(PortfolioMapper.INSTANCE::toPortfolioDTO);
+    }
 }

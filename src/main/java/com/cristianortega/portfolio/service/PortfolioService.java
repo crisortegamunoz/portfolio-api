@@ -32,7 +32,7 @@ public class PortfolioService {
         }
     }
 
-    public Optional<Portfolio> findById(Integer id) {
+    public Optional<Portfolio> getById(Integer id) {
         return portfolioRepository.findById(id);
     }
 

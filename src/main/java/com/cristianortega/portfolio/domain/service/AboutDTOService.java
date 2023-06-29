@@ -32,6 +32,10 @@ public class AboutDTOService {
         return Optional.of(array);
     }
 
+    public Optional<AboutDTO> getById(int id) {
+        return this.aboutService.getById(id).map(AboutMapper.INSTANCE::toAboutDTO);
+    }
+
     @Transactional
     public Optional<AboutDTO> save(AboutDTO aboutDTO) {
         return this.aboutService.save(getAboutWithBoxes(aboutDTO))

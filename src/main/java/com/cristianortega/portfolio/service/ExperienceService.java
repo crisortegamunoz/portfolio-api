@@ -32,7 +32,7 @@ public class ExperienceService {
         }
     }
 
-    public Optional<Experience> findById(Integer id) {
+    public Optional<Experience> getById(Integer id) {
         return experienceRepository.findById(id);
     }
 

@@ -32,7 +32,7 @@ public class TechnologyService {
         }
     }
 
-    public Optional<Technology> findById(Integer id) {
+    public Optional<Technology> getById(Integer id) {
         return technologyRepository.findById(id);
     }
 

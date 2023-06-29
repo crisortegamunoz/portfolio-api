@@ -47,12 +47,19 @@ public class TechnologyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         if (this.technologyService.exists(id)) {
             this.technologyService.delete(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Technology> getById(@PathVariable int id) {
+        return this.technologyService.getById(id)
+                .map(technology -> new ResponseEntity<>(technology, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
 }

@@ -31,4 +31,7 @@ public class SkillDTOService {
                 .map(SkillMapper.INSTANCE::toSkillDTO);
     }
 
+    public Optional<SkillDTO> getById(int id) {
+        return this.skillService.getById(id).map(SkillMapper.INSTANCE::toSkillDTO);
+    }
 }

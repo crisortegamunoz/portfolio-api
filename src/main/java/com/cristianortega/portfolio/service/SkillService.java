@@ -33,7 +33,7 @@ public class SkillService {
         }
     }
 
-    public Optional<Skill> findById(Integer id) {
+    public Optional<Skill> getById(Integer id) {
         return skillRepository.findById(id);
     }
 

@@ -58,5 +58,11 @@ public class AboutController {
         }
         return ResponseEntity.badRequest().build();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<AboutDTO> getById(@PathVariable int id) {
+        return this.aboutDTOService.getById(id)
+                .map(aboutDTO -> new ResponseEntity<>(aboutDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
 
 }
