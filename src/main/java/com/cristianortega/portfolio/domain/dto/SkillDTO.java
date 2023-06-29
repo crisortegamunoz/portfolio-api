@@ -6,7 +6,7 @@ public class SkillDTO {
 
     private Integer id;
     private String name;
-    private Boolean available;
+    private Boolean show;
     private Integer percentage;
     private String cssClass;
     private String cssStyle;

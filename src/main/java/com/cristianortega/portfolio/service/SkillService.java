@@ -1,5 +1,6 @@
 package com.cristianortega.portfolio.service;
 
+import com.cristianortega.portfolio.domain.service.SkillDTOService;
 import com.cristianortega.portfolio.persistence.entity.Skill;
 import com.cristianortega.portfolio.persistence.repository.SkillRepository;
 import org.springframework.stereotype.Service;

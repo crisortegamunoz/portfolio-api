@@ -1,5 +1,7 @@
 package com.cristianortega.portfolio.web.controller;
 
+import com.cristianortega.portfolio.domain.dto.SkillDTO;
+import com.cristianortega.portfolio.domain.service.SkillDTOService;
 import com.cristianortega.portfolio.persistence.entity.Skill;
 import com.cristianortega.portfolio.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,26 @@ import java.util.List;
 public class SkillController {
 
     private final SkillService skillService;
+    private final SkillDTOService skillDTOService;
+
     @Autowired
-    public SkillController(SkillService skillService) {
+    public SkillController(SkillService skillService,
+                           SkillDTOService skillDTOService) {
         this.skillService = skillService;
+        this.skillDTOService = skillDTOService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Skill>> getAll() {
-        return this.skillService.getAll()
+    public ResponseEntity<List<SkillDTO>> getAll() {
+        return this.skillDTOService.getAll()
                 .map(skills -> new ResponseEntity<>(skills, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Skill> save(@RequestBody Skill skill) {
-        if (skill.getIdSkill() == null || !this.skillService.exists(skill.getIdSkill())) {
-            return this.skillService.save(skill)
+    public ResponseEntity<SkillDTO> save(@RequestBody SkillDTO skillDTO) {
+        if (skillDTO.getId() == null || !this.skillService.exists(skillDTO.getId())) {
+            return this.skillDTOService.save(skillDTO)
                     .map(skillSaved -> new ResponseEntity<>(skillSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
@@ -37,9 +43,9 @@ public class SkillController {
     }
 
     @PutMapping
-    public ResponseEntity<Skill> update(@RequestBody Skill skill) {
-        if (skill.getIdSkill() != null && this.skillService.exists(skill.getIdSkill())) {
-            return this.skillService.save(skill)
+    public ResponseEntity<SkillDTO> update(@RequestBody SkillDTO skillDTO) {
+        if (skillDTO.getId() != null && this.skillService.exists(skillDTO.getId())) {
+            return this.skillDTOService.save(skillDTO)
                     .map(skillSaved -> new ResponseEntity<>(skillSaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }

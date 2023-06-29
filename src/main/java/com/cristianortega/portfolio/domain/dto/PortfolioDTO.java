@@ -13,14 +13,12 @@ public class PortfolioDTO {
     private String portfolioName;
     private String clientName;
     private String img;
-    @JsonIgnore
-    private String description;
     private String[] descriptions;
     private String repository;
     private String demo;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private LocalDateTime publishDate;
-    private List<TechnologyDTO> technology;
+    private List<TechnologyDTO> technologies;
     private CategoryDTO category;
 }

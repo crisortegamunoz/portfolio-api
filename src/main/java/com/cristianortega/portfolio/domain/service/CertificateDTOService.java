@@ -20,9 +20,8 @@ public class CertificateDTOService {
     }
 
     public Optional<List<CertificateDTO>> getAll() {
-        Optional<List<Certificate>> certificateList = this.certificateService.getAll();
         List<CertificateDTO> array = new ArrayList<>(0);
-        certificateList.ifPresent(certificates -> {
+        this.certificateService.getAll().ifPresent(certificates -> {
             array.addAll(CertificateMapper.INSTANCE.toCertificatesDTO(certificates));
         });
         return Optional.of(array);
