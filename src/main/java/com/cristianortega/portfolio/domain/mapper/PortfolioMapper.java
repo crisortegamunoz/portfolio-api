@@ -33,6 +33,6 @@ public interface PortfolioMapper {
     @Mappings({
             @Mapping(source = "category.id", target = "idCategory")
     })
-    Portfolio toPortfolio(PortfolioDTO certificateDTO);
+    Portfolio toPortfolio(PortfolioDTO portfolioDTO);
 
 }

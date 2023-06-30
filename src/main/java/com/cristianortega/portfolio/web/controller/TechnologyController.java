@@ -1,5 +1,7 @@
 package com.cristianortega.portfolio.web.controller;
 
+import com.cristianortega.portfolio.domain.dto.TechnologyDTO;
+import com.cristianortega.portfolio.domain.service.TechnologyDTOService;
 import com.cristianortega.portfolio.persistence.entity.Technology;
 import com.cristianortega.portfolio.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,26 @@ import java.util.List;
 public class TechnologyController {
 
     private final TechnologyService technologyService;
+    private final TechnologyDTOService technologyDTOService;
+
     @Autowired
-    public TechnologyController(TechnologyService technologyService) {
+    public TechnologyController(TechnologyService technologyService,
+                                TechnologyDTOService technologyDTOService) {
         this.technologyService = technologyService;
+        this.technologyDTOService = technologyDTOService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Technology>> getAll() {
-        return this.technologyService.getAll()
+    public ResponseEntity<List<TechnologyDTO>> getAll() {
+        return this.technologyDTOService.getAll()
                 .map(technologies -> new ResponseEntity<>(technologies, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Technology> save(@RequestBody Technology technology) {
-        if (technology.getIdTechnology() == null || !this.technologyService.exists(technology.getIdTechnology())) {
-            return this.technologyService.save(technology)
+    public ResponseEntity<TechnologyDTO> save(@RequestBody TechnologyDTO technologyDTO) {
+        if (technologyDTO.getId() == null || !this.technologyService.exists(technologyDTO.getId())) {
+            return this.technologyDTOService.save(technologyDTO)
                     .map(technologySaved -> new ResponseEntity<>(technologySaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }
@@ -37,9 +43,9 @@ public class TechnologyController {
     }
 
     @PutMapping
-    public ResponseEntity<Technology> update(@RequestBody Technology technology) {
-        if (technology.getIdTechnology() != null && this.technologyService.exists(technology.getIdTechnology())) {
-            return this.technologyService.save(technology)
+    public ResponseEntity<TechnologyDTO> update(@RequestBody TechnologyDTO technologyDTO) {
+        if (technologyDTO.getId() != null && this.technologyService.exists(technologyDTO.getId())) {
+            return this.technologyDTOService.save(technologyDTO)
                     .map(technologySaved -> new ResponseEntity<>(technologySaved, HttpStatus.OK))
                     .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
         }

@@ -16,9 +16,9 @@ public interface CategoryMapper {
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
     @Mapping(source = "idCategory", target = "id")
-    CategoryDTO categoryToCategoryDto(Category category);
+    CategoryDTO toCategoryDTO(Category category);
 
-    List<CategoryDTO> categoriesToCategoriesDTO(List<Category> categories);
+    List<CategoryDTO> toCategoriesDTO(List<Category> categories);
 
     @InheritInverseConfiguration
     @Mappings({
