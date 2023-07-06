@@ -23,10 +23,10 @@ public class Certificate {
     @Column(name = "id_category", nullable = false)
     private Integer idCategory;
 
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 50)
     private String entity;
 
     @Column(nullable = false, columnDefinition = "DATETIME")

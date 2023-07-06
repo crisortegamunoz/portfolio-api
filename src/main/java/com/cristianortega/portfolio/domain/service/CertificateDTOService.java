@@ -2,6 +2,7 @@ package com.cristianortega.portfolio.domain.service;
 
 import com.cristianortega.portfolio.domain.dto.CertificateDTO;
 import com.cristianortega.portfolio.domain.mapper.CertificateMapper;
+import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.service.CertificateService;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,13 @@ public class CertificateDTOService {
 
     public Optional<CertificateDTO> getById(int id) {
         return this.certificateService.getById(id).map(CertificateMapper.INSTANCE::toCertificateDTO);
+    }
+
+    public Optional<List<CertificateDTO>> getAllDesc() {
+        List<CertificateDTO> array = new ArrayList<>(0);
+        this.certificateService.getAllDesc().ifPresent(certificates -> {
+            array.addAll(CertificateMapper.INSTANCE.toCertificatesDTO(certificates));
+        });
+        return Optional.of(array);
     }
 }

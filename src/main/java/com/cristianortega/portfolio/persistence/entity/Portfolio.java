@@ -1,6 +1,6 @@
 package com.cristianortega.portfolio.persistence.entity;
 
-import com.cristianortega.portfolio.persistence.config.StringArrayConverter;
+import com.cristianortega.portfolio.persistence.config.StringArraySlashConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class Portfolio {
     @Column(nullable = false, length = 300)
     private String image;
 
-    @Convert(converter = StringArrayConverter.class)
+    @Convert(converter = StringArraySlashConverter.class)
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String[] description;
 

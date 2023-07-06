@@ -1,7 +1,6 @@
 package com.cristianortega.portfolio.service;
 
 import com.cristianortega.portfolio.persistence.entity.Certificate;
-import com.cristianortega.portfolio.persistence.entity.Experience;
 import com.cristianortega.portfolio.persistence.repository.CertificateRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,4 +44,7 @@ public class CertificateService {
         return this.certificateRepository.existsById(id);
     }
 
+    public Optional<List<Certificate>> getAllDesc() {
+        return this.certificateRepository.findAllByOrderByIdCertificateDesc();
+    }
 }

@@ -18,6 +18,7 @@ public interface ExperienceMapper {
             @Mapping(source = "idExperience", target = "id"),
             @Mapping(source = "role", target = "roleName"),
             @Mapping(source = "entity", target = "entityName"),
+            @Mapping(source = "location", target = "entityLocation"),
             @Mapping(source = "startDate", target = "periodStart"),
             @Mapping(source = "endDate", target = "periodEnd"),
             @Mapping(source = "experienceTechnologies", target = "technologies")

@@ -1,7 +1,6 @@
 package com.cristianortega.portfolio.web.controller;
 
 import com.cristianortega.portfolio.domain.service.CertificateDTOService;
-import com.cristianortega.portfolio.persistence.entity.Certificate;
 import com.cristianortega.portfolio.service.CertificateService;
 import com.cristianortega.portfolio.domain.dto.CertificateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,8 @@ public class CertificateController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Certificate>> getAll() {
-        return this.certificateService.getAll()
+    public ResponseEntity<List<CertificateDTO>> getAll() {
+        return this.certificateDTOService.getAll()
                 .map(certificates -> new ResponseEntity<>(certificates, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -62,6 +61,13 @@ public class CertificateController {
         return this.certificateDTOService.getById(id)
                 .map(certificateDTO -> new ResponseEntity<>(certificateDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("/desc")
+    public ResponseEntity<List<CertificateDTO>> getAllDesc() {
+        return this.certificateDTOService.getAllDesc()
+                .map(certificates -> new ResponseEntity<>(certificates, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

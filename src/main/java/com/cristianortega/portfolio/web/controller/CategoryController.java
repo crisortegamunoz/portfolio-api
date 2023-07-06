@@ -2,7 +2,7 @@ package com.cristianortega.portfolio.web.controller;
 
 import com.cristianortega.portfolio.domain.dto.CategoryDTO;
 import com.cristianortega.portfolio.domain.service.CategoryDTOService;
-import com.cristianortega.portfolio.persistence.entity.Category;
+import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,6 +64,13 @@ public class CategoryController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/section/{section}")
+    public ResponseEntity<List<CategoryDTO>> getBySection(@PathVariable String section) {
+        return this.categoryDTOService.getBySection(Section.valueOf(section))
+                .map(categories -> new ResponseEntity<>(categories, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

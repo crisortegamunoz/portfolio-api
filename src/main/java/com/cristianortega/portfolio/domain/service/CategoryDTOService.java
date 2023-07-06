@@ -2,6 +2,7 @@ package com.cristianortega.portfolio.domain.service;
 
 import com.cristianortega.portfolio.domain.dto.CategoryDTO;
 import com.cristianortega.portfolio.domain.mapper.CategoryMapper;
+import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,13 @@ public class CategoryDTOService {
     }
     public Optional<CategoryDTO> getById(int id) {
         return this.categoryService.getById(id).map(CategoryMapper.INSTANCE::toCategoryDTO);
+    }
+
+    public Optional<List<CategoryDTO>> getBySection(Section section) {
+        List<CategoryDTO> array = new ArrayList<>(0);
+        this.categoryService.getBySection(section).ifPresent(skills -> {
+            array.addAll(CategoryMapper.INSTANCE.toCategoriesDTO(skills));
+        });
+        return Optional.of(array);
     }
 }

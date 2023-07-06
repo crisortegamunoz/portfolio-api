@@ -4,7 +4,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 @Converter
-public class StringArrayConverter implements AttributeConverter<String[], String> {
+public class StringArrayDelimiterConverter implements AttributeConverter<String[], String> {
 
     private static final String DELIMITER = ",";
 

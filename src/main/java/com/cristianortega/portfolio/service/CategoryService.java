@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.service;
 
 import com.cristianortega.portfolio.persistence.entity.Category;
+import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.persistence.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -43,4 +44,7 @@ public class CategoryService {
         return this.categoryRepository.existsById(id);
     }
 
+    public Optional<List<Category>> getBySection(Section section) {
+        return this.categoryRepository.findBySectionOrderByIdCategoryDesc(section);
+    }
 }

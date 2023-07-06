@@ -1,10 +1,11 @@
 package com.cristianortega.portfolio.persistence.entity;
 
-import com.cristianortega.portfolio.persistence.config.StringArrayConverter;
+import com.cristianortega.portfolio.persistence.config.StringArraySlashConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class About {
     @Column(nullable = false, length = 40)
     private String title;
 
-    @Convert(converter = StringArrayConverter.class)
+    @Convert(converter = StringArraySlashConverter.class)
     @Column(nullable = false, length = 4000)
     private String[] descriptions;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(
             name = "about_boxes",
             joinColumns = @JoinColumn(name = "id_about"),

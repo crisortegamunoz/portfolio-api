@@ -13,6 +13,7 @@ public class ExperienceDTO {
     private String roleDescription;
     private String entityName;
     private String entityDescription;
+    private String entityLocation;
     private String[] responsibilities;
     private LocalDateTime periodStart;
     private LocalDateTime periodEnd;
