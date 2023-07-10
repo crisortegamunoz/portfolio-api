@@ -4,6 +4,7 @@ import com.cristianortega.portfolio.domain.service.CertificateDTOService;
 import com.cristianortega.portfolio.service.CertificateService;
 import com.cristianortega.portfolio.domain.dto.CertificateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,12 @@ public class CertificateController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CertificateDTO>> getAll() {
-        return this.certificateDTOService.getAll()
-                .map(certificates -> new ResponseEntity<>(certificates, HttpStatus.OK))
+    public ResponseEntity<Page<CertificateDTO>> getAll(@RequestParam(defaultValue = "0") int pages,
+                                                       @RequestParam(defaultValue = "50") int elements,
+                                                       @RequestParam(defaultValue = "idCertificate") String sortBy,
+                                                       @RequestParam(defaultValue = "DESC") String sortDirection) {
+        return this.certificateDTOService.getAll(pages, elements, sortBy, sortDirection)
+                .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -61,13 +65,6 @@ public class CertificateController {
         return this.certificateDTOService.getById(id)
                 .map(certificateDTO -> new ResponseEntity<>(certificateDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
-
-    @GetMapping("/desc")
-    public ResponseEntity<List<CertificateDTO>> getAllDesc() {
-        return this.certificateDTOService.getAllDesc()
-                .map(certificates -> new ResponseEntity<>(certificates, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

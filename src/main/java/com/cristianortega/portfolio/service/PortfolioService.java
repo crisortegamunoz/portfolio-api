@@ -2,6 +2,9 @@ package com.cristianortega.portfolio.service;
 
 import com.cristianortega.portfolio.persistence.entity.Portfolio;
 import com.cristianortega.portfolio.persistence.repository.PortfolioRepository;
+import com.cristianortega.portfolio.persistence.repository.pagination.PortfolioPageSortRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,13 +14,16 @@ import java.util.Optional;
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
+    private final PortfolioPageSortRepository portfolioPageSortRepository;
 
-    public PortfolioService(PortfolioRepository portfolioRepository) {
+    public PortfolioService(PortfolioRepository portfolioRepository,
+                            PortfolioPageSortRepository portfolioPageSortRepository) {
         this.portfolioRepository = portfolioRepository;
+        this.portfolioPageSortRepository = portfolioPageSortRepository;
     }
 
-    public Optional<List<Portfolio>> getAll() {
-        return Optional.of(portfolioRepository.findAll());
+    public Page<Portfolio> getAll(Pageable pageRequest) {
+        return this.portfolioPageSortRepository.findAllBy(pageRequest);
     }
 
     public Optional<Portfolio> save(Portfolio portfolio) {

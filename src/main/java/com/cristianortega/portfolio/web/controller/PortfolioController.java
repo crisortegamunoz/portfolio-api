@@ -4,6 +4,7 @@ import com.cristianortega.portfolio.domain.dto.PortfolioDTO;
 import com.cristianortega.portfolio.domain.service.PortfolioDTOService;
 import com.cristianortega.portfolio.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,12 @@ public class PortfolioController {
         this.portfolioDTOService = portfolioDTOService;
     }
     @GetMapping
-    public ResponseEntity<List<PortfolioDTO>> getAll() {
-        return this.portfolioDTOService.getAll()
-                .map(portfolios -> new ResponseEntity<>(portfolios, HttpStatus.OK))
+    public ResponseEntity<Page<PortfolioDTO>> getAll(@RequestParam(defaultValue = "0") int pages,
+                                                     @RequestParam(defaultValue = "50") int elements,
+                                                     @RequestParam(defaultValue = "idPortfolio") String sortBy,
+                                                     @RequestParam(defaultValue = "DESC") String sortDirection) {
+        return this.portfolioDTOService.getAll(pages, elements, sortBy, sortDirection)
+                .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PostMapping

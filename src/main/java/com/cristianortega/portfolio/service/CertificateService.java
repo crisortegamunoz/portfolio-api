@@ -2,22 +2,29 @@ package com.cristianortega.portfolio.service;
 
 import com.cristianortega.portfolio.persistence.entity.Certificate;
 import com.cristianortega.portfolio.persistence.repository.CertificateRepository;
+import com.cristianortega.portfolio.persistence.repository.pagination.CertificatePageSortRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CertificateService {
 
     private final CertificateRepository certificateRepository;
+    private final CertificatePageSortRepository certificatePageSortRepository;
 
-    public CertificateService(CertificateRepository certificateRepository) {
+    @Autowired
+    public CertificateService(CertificateRepository certificateRepository,
+                              CertificatePageSortRepository certificatePageSortRepository) {
         this.certificateRepository = certificateRepository;
+        this.certificatePageSortRepository = certificatePageSortRepository;
     }
 
-    public Optional<List<Certificate>> getAll() {
-        return Optional.of(certificateRepository.findAll());
+    public Page<Certificate> getAll(Pageable pageRequest) {
+        return this.certificatePageSortRepository.findAll(pageRequest);
     }
 
     public Optional<Certificate> save(Certificate certificate) {
@@ -44,7 +51,4 @@ public class CertificateService {
         return this.certificateRepository.existsById(id);
     }
 
-    public Optional<List<Certificate>> getAllDesc() {
-        return this.certificateRepository.findAllByOrderByIdCertificateDesc();
-    }
 }
