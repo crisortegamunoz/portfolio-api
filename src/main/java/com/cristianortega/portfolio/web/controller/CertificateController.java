@@ -28,7 +28,7 @@ public class CertificateController {
                                                        @RequestParam(defaultValue = "50") int elements,
                                                        @RequestParam(defaultValue = "idCertificate") String sortBy,
                                                        @RequestParam(defaultValue = "DESC") String sortDirection) {
-        return this.certificateDTOService.getAll(pages, elements, sortBy, sortDirection)
+        return this.certificateDTOService.getAll(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection))
                 .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
