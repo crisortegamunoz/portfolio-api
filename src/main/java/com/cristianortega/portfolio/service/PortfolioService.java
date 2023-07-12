@@ -21,15 +21,12 @@ public class PortfolioService {
         this.portfolioRepository = portfolioRepository;
         this.portfolioPageSortRepository = portfolioPageSortRepository;
     }
-
     public Page<Portfolio> getAll(Pageable pageRequest) {
         return this.portfolioPageSortRepository.findAllBy(pageRequest);
     }
-
     public Optional<Portfolio> save(Portfolio portfolio) {
         return Optional.of(portfolioRepository.save(portfolio));
     }
-
     public Optional<Portfolio> update(Portfolio portfolio) {
         if (exists(portfolio.getIdPortfolio())) {
             return Optional.of(portfolioRepository.save(portfolio));
@@ -37,17 +34,17 @@ public class PortfolioService {
             return Optional.empty();
         }
     }
-
     public Optional<Portfolio> getById(Integer id) {
         return portfolioRepository.findById(id);
     }
-
     public void delete(Integer id) {
         this.portfolioRepository.deleteById(id);
     }
-
     public boolean exists(Integer id) {
         return this.portfolioRepository.existsById(id);
+    }
+    public Page<Portfolio> getByCategory(Pageable pageRequest, int idCategory) {
+        return this.portfolioPageSortRepository.findAllByIdCategory(pageRequest, idCategory);
     }
 
 }

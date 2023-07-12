@@ -3,13 +3,12 @@ package com.cristianortega.portfolio.web.controller;
 import com.cristianortega.portfolio.domain.service.CertificateDTOService;
 import com.cristianortega.portfolio.service.CertificateService;
 import com.cristianortega.portfolio.domain.dto.CertificateDTO;
+import com.cristianortega.portfolio.web.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/certificates")
@@ -65,6 +64,17 @@ public class CertificateController {
         return this.certificateDTOService.getById(id)
                 .map(certificateDTO -> new ResponseEntity<>(certificateDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<CertificateDTO>> getByCategory(@PathVariable int id,
+                                                            @RequestParam(defaultValue = "0") int pages,
+                                                            @RequestParam(defaultValue = "50") int elements,
+                                                            @RequestParam(defaultValue = "idPortfolio") String sortBy,
+                                                            @RequestParam(defaultValue = "DESC") String sortDirection) {
+        return this.certificateDTOService.getByCategory(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection), id)
+                .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

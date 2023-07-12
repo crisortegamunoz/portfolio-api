@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.domain.service;
 
 import com.cristianortega.portfolio.domain.dto.PortfolioDTO;
+import com.cristianortega.portfolio.domain.mapper.PortfolioLightMapper;
 import com.cristianortega.portfolio.domain.mapper.PortfolioMapper;
 import com.cristianortega.portfolio.domain.util.PageConvert;
 import com.cristianortega.portfolio.persistence.entity.Portfolio;
@@ -21,19 +22,19 @@ public class PortfolioDTOService {
     public PortfolioDTOService(PortfolioService portfolioService) {
         this.portfolioService = portfolioService;
     }
-    public Optional<Page<PortfolioDTO>> getAll(int pages, int elements, String sortBy, String sortDirection) {
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        Pageable pageRequest = PageRequest.of(pages, elements, sort);
+    public Optional<Page<PortfolioDTO>> getAll(Pageable pageRequest) {
         Optional<Page<Portfolio>> pageOptional = Optional.ofNullable(this.portfolioService.getAll(pageRequest));
-        return pageOptional.map(page -> PageConvert.convertPage(page, PortfolioMapper.INSTANCE.toPortfoliosDTO(page.getContent())));
+        return pageOptional.map(page -> PageConvert.convertPage(page, PortfolioLightMapper.INSTANCE.toPortfoliosDTOLight(page.getContent())));
     }
-
     public Optional<PortfolioDTO> save(PortfolioDTO portfolioDTO) {
         return this.portfolioService.save(PortfolioMapper.INSTANCE.toPortfolio(portfolioDTO))
                 .map(PortfolioMapper.INSTANCE::toPortfolioDTO);
     }
-
     public Optional<PortfolioDTO> getById(int id) {
         return this.portfolioService.getById(id).map(PortfolioMapper.INSTANCE::toPortfolioDTO);
+    }
+    public Optional<Page<PortfolioDTO>> getByCategory(Pageable pageRequest, int idCategory) {
+        Optional<Page<Portfolio>> pageOptional = Optional.ofNullable(this.portfolioService.getByCategory(pageRequest, idCategory));
+        return pageOptional.map(page -> PageConvert.convertPage(page, PortfolioLightMapper.INSTANCE.toPortfoliosDTOLight(page.getContent())));
     }
 }

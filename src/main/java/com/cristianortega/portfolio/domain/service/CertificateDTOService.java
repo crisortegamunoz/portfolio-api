@@ -24,20 +24,20 @@ public class CertificateDTOService {
     public CertificateDTOService(CertificateService certificateService) {
         this.certificateService = certificateService;
     }
-    public Optional<Page<CertificateDTO>> getAll(int pages, int elements, String sortBy, String sortDirection) {
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        Pageable pageRequest = PageRequest.of(pages, elements, sort);
+    public Optional<Page<CertificateDTO>> getAll(Pageable pageRequest) {
         Optional<Page<Certificate>> pageOptional = Optional.ofNullable(this.certificateService.getAll(pageRequest));
         return pageOptional.map(page -> PageConvert.convertPage(page, CertificateMapper.INSTANCE.toCertificatesDTO(page.getContent())));
     }
-
     public Optional<CertificateDTO> save(CertificateDTO certificateDTO) {
         return this.certificateService.save(CertificateMapper.INSTANCE.toCertificate(certificateDTO))
                 .map(CertificateMapper.INSTANCE::toCertificateDTO);
     }
-
     public Optional<CertificateDTO> getById(int id) {
         return this.certificateService.getById(id).map(CertificateMapper.INSTANCE::toCertificateDTO);
+    }
+    public Optional<Page<CertificateDTO>> getByCategory(Pageable pageRequest, int idCategory) {
+        Optional<Page<Certificate>> pageOptional = Optional.ofNullable(this.certificateService.getByCategory(pageRequest, idCategory));
+        return pageOptional.map(page -> PageConvert.convertPage(page, CertificateMapper.INSTANCE.toCertificatesDTO(page.getContent())));
     }
 
 }

@@ -22,15 +22,12 @@ public class CertificateService {
         this.certificateRepository = certificateRepository;
         this.certificatePageSortRepository = certificatePageSortRepository;
     }
-
     public Page<Certificate> getAll(Pageable pageRequest) {
         return this.certificatePageSortRepository.findAll(pageRequest);
     }
-
     public Optional<Certificate> save(Certificate certificate) {
         return Optional.of(certificateRepository.save(certificate));
     }
-
     public Optional<Certificate> update(Certificate certificate) {
         if (exists(certificate.getIdCertificate())) {
             return Optional.of(certificateRepository.save(certificate));
@@ -38,17 +35,17 @@ public class CertificateService {
             return Optional.empty();
         }
     }
-
     public Optional<Certificate> getById(Integer id) {
         return certificateRepository.findById(id);
     }
-
     public void delete(Integer id) {
         this.certificateRepository.deleteById(id);
     }
-
     public boolean exists(Integer id) {
         return this.certificateRepository.existsById(id);
+    }
+    public Page<Certificate> getByCategory(Pageable pageRequest, int idCategory) {
+        return this.certificatePageSortRepository.findAllByIdCategory(pageRequest, idCategory);
     }
 
 }

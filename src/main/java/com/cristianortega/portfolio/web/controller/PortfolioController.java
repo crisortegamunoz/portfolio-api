@@ -3,6 +3,7 @@ package com.cristianortega.portfolio.web.controller;
 import com.cristianortega.portfolio.domain.dto.PortfolioDTO;
 import com.cristianortega.portfolio.domain.service.PortfolioDTOService;
 import com.cristianortega.portfolio.service.PortfolioService;
+import com.cristianortega.portfolio.web.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class PortfolioController {
                                                      @RequestParam(defaultValue = "50") int elements,
                                                      @RequestParam(defaultValue = "idPortfolio") String sortBy,
                                                      @RequestParam(defaultValue = "DESC") String sortDirection) {
-        return this.portfolioDTOService.getAll(pages, elements, sortBy, sortDirection)
+        return this.portfolioDTOService.getAll(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection))
                 .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -63,5 +64,16 @@ public class PortfolioController {
         return this.portfolioDTOService.getById(id)
                 .map(portfolioDTO -> new ResponseEntity<>(portfolioDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<PortfolioDTO>> getByCategory(@PathVariable int id,
+                                                     @RequestParam(defaultValue = "0") int pages,
+                                                     @RequestParam(defaultValue = "50") int elements,
+                                                     @RequestParam(defaultValue = "idPortfolio") String sortBy,
+                                                     @RequestParam(defaultValue = "DESC") String sortDirection) {
+        return this.portfolioDTOService.getByCategory(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection), id)
+                .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

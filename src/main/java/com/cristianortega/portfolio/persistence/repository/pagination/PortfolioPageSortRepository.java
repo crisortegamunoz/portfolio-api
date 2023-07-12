@@ -7,4 +7,5 @@ import org.springframework.data.repository.ListPagingAndSortingRepository;
 
 public interface PortfolioPageSortRepository extends ListPagingAndSortingRepository<Portfolio, Integer> {
     Page<Portfolio> findAllBy(Pageable pageable);
+    Page<Portfolio> findAllByIdCategory(Pageable pageable, int idCategory);
 }

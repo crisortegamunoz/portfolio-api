@@ -1,6 +1,5 @@
 package com.cristianortega.portfolio.persistence.entity;
 
-import com.cristianortega.portfolio.persistence.config.StringArraySlashConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -57,7 +56,7 @@ public class Portfolio {
     @JsonIgnore
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "portfolio_technology",
             joinColumns = @JoinColumn(name = "id_portfolio"),
