@@ -13,7 +13,7 @@ public class PortfolioDTO {
     private String portfolioName;
     private String clientName;
     private String img;
-    private String[] descriptions;
+    private String description;
     private String repository;
     private String demo;
     private LocalDateTime startDate;

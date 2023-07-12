@@ -34,9 +34,8 @@ public class Portfolio {
     @Column(nullable = false, length = 300)
     private String image;
 
-    @Convert(converter = StringArraySlashConverter.class)
     @Column(name = "description", columnDefinition = "TEXT", nullable = false)
-    private String[] description;
+    private String description;
 
     @Column(name = "repository_url", length = 100)
     private String repositoryUrl;

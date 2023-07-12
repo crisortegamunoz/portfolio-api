@@ -18,7 +18,6 @@ public interface PortfolioMapper {
             @Mapping(source = "idPortfolio", target = "id"),
             @Mapping(source = "name", target = "portfolioName"),
             @Mapping(source = "image", target = "img"),
-            @Mapping(source = "description", target = "descriptions"),
             @Mapping(source = "repositoryUrl", target = "repository"),
             @Mapping(source = "demoUrl", target = "demo"),
             @Mapping(source = "workingFrom", target = "startDate"),
