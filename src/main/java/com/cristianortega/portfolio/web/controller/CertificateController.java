@@ -70,7 +70,7 @@ public class CertificateController {
     public ResponseEntity<Page<CertificateDTO>> getByCategory(@PathVariable int id,
                                                             @RequestParam(defaultValue = "0") int pages,
                                                             @RequestParam(defaultValue = "50") int elements,
-                                                            @RequestParam(defaultValue = "idPortfolio") String sortBy,
+                                                            @RequestParam(defaultValue = "idCertificate") String sortBy,
                                                             @RequestParam(defaultValue = "DESC") String sortDirection) {
         return this.certificateDTOService.getByCategory(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection), id)
                 .map(page -> new ResponseEntity<>(page, HttpStatus.OK))
