@@ -3,6 +3,7 @@ package com.cristianortega.portfolio.service;
 import com.cristianortega.portfolio.domain.service.SkillDTOService;
 import com.cristianortega.portfolio.persistence.entity.Skill;
 import com.cristianortega.portfolio.persistence.repository.SkillRepository;
+import org.antlr.v4.runtime.misc.MultiMap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,4 +46,11 @@ public class SkillService {
         return this.skillRepository.existsById(id);
     }
 
+    public Optional<List<Skill>> findByCategoryName(String categoryName) {
+        return this.skillRepository.findAllByCategory_Name(categoryName);
+    }
+
+    public Optional<List<Skill>> findByCategoryNameOrderByPercentage(String categoryName) {
+        return this.skillRepository.findAllByCategory_NameOrderByPercentageDesc(categoryName);
+    }
 }

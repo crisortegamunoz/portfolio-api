@@ -62,4 +62,18 @@ public class SkillController {
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
+    @GetMapping("/section/{categoryName}")
+    public ResponseEntity<List<SkillDTO>> findByCategoryName(@PathVariable String categoryName) {
+        return this.skillDTOService.findByCategoryName(categoryName)
+                .map(skills -> new ResponseEntity<>(skills, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("/orderByPercentage/{categoryName}")
+    public ResponseEntity<List<SkillDTO>> findByCategoryNameOrderByPercentage(@PathVariable String categoryName) {
+        return this.skillDTOService.findByCategoryNameOrderByPercentage(categoryName)
+                .map(skills -> new ResponseEntity<>(skills, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
 }

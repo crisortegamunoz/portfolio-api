@@ -4,6 +4,7 @@ import com.cristianortega.portfolio.domain.dto.SkillDTO;
 import com.cristianortega.portfolio.domain.mapper.SkillMapper;
 import com.cristianortega.portfolio.persistence.entity.Skill;
 import com.cristianortega.portfolio.service.SkillService;
+import org.antlr.v4.runtime.misc.MultiMap;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,5 +35,13 @@ public class SkillDTOService {
 
     public Optional<SkillDTO> getById(int id) {
         return this.skillService.getById(id).map(SkillMapper.INSTANCE::toSkillDTO);
+    }
+
+    public Optional<List<SkillDTO>> findByCategoryName(String categoryName) {
+        return this.skillService.findByCategoryName(categoryName).map(SkillMapper.INSTANCE::toSkillsDTO);
+    }
+
+    public Optional<List<SkillDTO>> findByCategoryNameOrderByPercentage(String categoryName) {
+        return this.skillService.findByCategoryNameOrderByPercentage(categoryName).map(SkillMapper.INSTANCE::toSkillsDTO);
     }
 }
