@@ -1,6 +1,5 @@
 package com.cristianortega.portfolio.web.controller;
 
-import com.cristianortega.portfolio.domain.dto.AboutDTO;
 import com.cristianortega.portfolio.domain.dto.ExperienceDTO;
 import com.cristianortega.portfolio.domain.service.ExperienceDTOService;
 import com.cristianortega.portfolio.service.ExperienceService;
@@ -59,6 +58,13 @@ public class ExperienceController {
     public ResponseEntity<ExperienceDTO> getById(@PathVariable int id) {
         return this.experienceDTOService.getById(id)
                 .map(aboutDTO -> new ResponseEntity<>(aboutDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("/category/{name}")
+    public ResponseEntity<List<ExperienceDTO>> findByCategoryName(@PathVariable String name) {
+        return this.experienceDTOService.findByCategoryName(name)
+                .map(skills -> new ResponseEntity<>(skills, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 

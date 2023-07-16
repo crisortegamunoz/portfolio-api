@@ -44,4 +44,7 @@ public class ExperienceService {
         return this.experienceRepository.existsById(id);
     }
 
+    public Optional<List<Experience>> findByCategoryName(String name) {
+        return this.experienceRepository.findAllByCategory_NameOrderByIdExperienceDesc(name);
+    }
 }

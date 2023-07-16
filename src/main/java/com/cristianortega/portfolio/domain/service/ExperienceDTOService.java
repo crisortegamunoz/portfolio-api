@@ -33,4 +33,8 @@ public class ExperienceDTOService {
     public Optional<ExperienceDTO> getById(int id) {
         return this.experienceService.getById(id).map(ExperienceMapper.INSTANCE::toExperienceDTO);
     }
+
+    public Optional<List<ExperienceDTO>> findByCategoryName(String name) {
+        return this.experienceService.findByCategoryName(name).map(ExperienceMapper.INSTANCE::toExperiencesDTO);
+    }
 }
