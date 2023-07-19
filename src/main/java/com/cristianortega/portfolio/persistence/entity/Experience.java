@@ -1,6 +1,6 @@
 package com.cristianortega.portfolio.persistence.entity;
 
-import com.cristianortega.portfolio.persistence.config.StringArrayDelimiterConverter;
+import com.cristianortega.portfolio.persistence.config.StringArraySlashConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class Experience {
     @Column(length = 100)
     private String role;
 
-    @Column(length = 1000)
+    @Column(name = "role_description",length = 1000)
     private String roleDescription;
 
     @Column(nullable = false, length = 200)
@@ -37,14 +37,14 @@ public class Experience {
     @Column(nullable = false, length = 100)
     private String location;
 
-    @Column(length = 4000)
-    private String entityDescripcion;
+    @Column(name = "entity_description", length = 4000)
+    private String entityDescription;
 
-    @Convert(converter = StringArrayDelimiterConverter.class)
+    @Convert(converter = StringArraySlashConverter.class)
     @Column(columnDefinition = "TEXT", nullable = false)
     private String[] responsibilities;
 
-    @Convert(converter = StringArrayDelimiterConverter.class)
+    @Convert(converter = StringArraySlashConverter.class)
     @Column(columnDefinition = "TEXT")
     private String[] accomplishments;
 
