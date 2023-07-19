@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class User {
     private String password;
 
     @Column(length = 70)
+    @Email
     private String email;
 
     @Column(nullable = false, columnDefinition = "TINYINT")

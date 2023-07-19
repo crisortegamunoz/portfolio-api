@@ -15,6 +15,7 @@ public class ExperienceDTO {
     private String entityDescription;
     private String entityLocation;
     private String[] responsibilities;
+    private String[] accomplishments;
     private LocalDateTime periodStart;
     private LocalDateTime periodEnd;
     private CategoryDTO category;

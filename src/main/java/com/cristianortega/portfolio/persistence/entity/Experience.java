@@ -41,8 +41,12 @@ public class Experience {
     private String entityDescripcion;
 
     @Convert(converter = StringArrayDelimiterConverter.class)
-    @Column(name = "responsabilities", columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String[] responsibilities;
+
+    @Convert(converter = StringArrayDelimiterConverter.class)
+    @Column(columnDefinition = "TEXT")
+    private String[] accomplishments;
 
     @Column(name = "start_date", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime startDate;
