@@ -2,9 +2,7 @@ package com.cristianortega.portfolio.domain.service;
 
 import com.cristianortega.portfolio.domain.dto.SkillDTO;
 import com.cristianortega.portfolio.domain.mapper.SkillMapper;
-import com.cristianortega.portfolio.persistence.entity.Skill;
 import com.cristianortega.portfolio.service.SkillService;
-import org.antlr.v4.runtime.misc.MultiMap;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

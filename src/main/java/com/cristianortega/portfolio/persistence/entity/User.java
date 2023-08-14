@@ -18,17 +18,13 @@ public class User {
     @Id
     @Column(nullable = false, length = 20)
     private String username;
-
     @Column(nullable = false, length = 200)
     private String password;
-
     @Column(length = 70)
     @Email
     private String email;
-
     @Column(nullable = false, columnDefinition = "TINYINT")
     private Boolean locked;
-
     @Column(nullable = false, columnDefinition = "TINYINT")
     private Boolean disabled;
 
