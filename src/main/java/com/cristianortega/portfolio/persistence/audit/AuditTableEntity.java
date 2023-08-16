@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 @MappedSuperclass
 public class AuditTableEntity {
 
-    @Column(name = "create")
+    @Column(name = "create_by")
     @CreatedBy
     private String createdBy;
 

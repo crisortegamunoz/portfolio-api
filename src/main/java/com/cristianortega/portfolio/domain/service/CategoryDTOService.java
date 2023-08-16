@@ -2,8 +2,14 @@ package com.cristianortega.portfolio.domain.service;
 
 import com.cristianortega.portfolio.domain.dto.CategoryDTO;
 import com.cristianortega.portfolio.domain.mapper.CategoryMapper;
+import com.cristianortega.portfolio.domain.mapper.CertificateMapper;
+import com.cristianortega.portfolio.domain.util.PageConvert;
+import com.cristianortega.portfolio.persistence.entity.Category;
+import com.cristianortega.portfolio.persistence.entity.Certificate;
 import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.service.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,12 +24,9 @@ public class CategoryDTOService {
         this.categoryService = categoryService;
     }
 
-    public Optional<List<CategoryDTO>> getAll() {
-        List<CategoryDTO> array = new ArrayList<>(0);
-        this.categoryService.getAll().ifPresent(skills -> {
-            array.addAll(CategoryMapper.INSTANCE.toCategoriesDTO(skills));
-        });
-        return Optional.of(array);
+    public Optional<Page<CategoryDTO>> getAll(Pageable pageRequest) {
+        Optional<Page<Category>> pageOptional = Optional.ofNullable(this.categoryService.getAll(pageRequest));
+        return pageOptional.map(page -> PageConvert.convertPage(page, CategoryMapper.INSTANCE.toCategoriesDTO(page.getContent())));
     }
     public Optional<CategoryDTO> save(CategoryDTO technologyDTO) {
         return this.categoryService.save(CategoryMapper.INSTANCE.toCategory(technologyDTO))

@@ -3,6 +3,9 @@ package com.cristianortega.portfolio.service;
 import com.cristianortega.portfolio.persistence.entity.Category;
 import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.persistence.repository.CategoryRepository;
+import com.cristianortega.portfolio.persistence.repository.pagination.CategoryPageSortRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +15,14 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-    public CategoryService(CategoryRepository categoryRepository) {
+    private final CategoryPageSortRepository categoryPageSortRepository;
+    public CategoryService(CategoryRepository categoryRepository, CategoryPageSortRepository categoryPageSortRepository) {
         this.categoryRepository = categoryRepository;
+        this.categoryPageSortRepository = categoryPageSortRepository;
     }
 
-    public Optional<List<Category>> getAll() {
-        return Optional.of(categoryRepository.findAll());
+    public Page<Category> getAll(Pageable pageRequest) {
+        return this.categoryPageSortRepository.findAll(pageRequest);
     }
 
     public Optional<Category> save(Category category) {

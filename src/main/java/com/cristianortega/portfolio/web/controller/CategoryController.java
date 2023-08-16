@@ -4,7 +4,9 @@ import com.cristianortega.portfolio.domain.dto.CategoryDTO;
 import com.cristianortega.portfolio.domain.service.CategoryDTOService;
 import com.cristianortega.portfolio.persistence.entity.enumeration.Section;
 import com.cristianortega.portfolio.service.CategoryService;
+import com.cristianortega.portfolio.web.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,11 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryDTO>> getAll() {
-        return this.categoryDTOService.getAll()
+    public ResponseEntity<Page<CategoryDTO>> getAll(@RequestParam(defaultValue = "0") int pages,
+                                                    @RequestParam(defaultValue = "50") int elements,
+                                                    @RequestParam(defaultValue = "idCategory") String sortBy,
+                                                    @RequestParam(defaultValue = "DESC") String sortDirection) {
+        return this.categoryDTOService.getAll(PageableUtil.basicPageable(pages, elements, sortBy, sortDirection))
                 .map(categories -> new ResponseEntity<>(categories, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
