@@ -1,20 +1,24 @@
 package com.cristianortega.portfolio.persistence.entity;
 
+import com.cristianortega.portfolio.persistence.audit.AuditTableEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "portfolio")
+@EntityListeners({ AuditingEntityListener.class })
 @Getter
 @Setter
 @NoArgsConstructor
-public class Portfolio {
+public class Portfolio extends AuditTableEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
