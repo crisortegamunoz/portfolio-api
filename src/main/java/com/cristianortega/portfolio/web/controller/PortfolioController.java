@@ -63,7 +63,7 @@ public class PortfolioController {
     public ResponseEntity<PortfolioDTO> getById(@PathVariable int id) {
         return this.portfolioDTOService.getById(id)
                 .map(portfolioDTO -> new ResponseEntity<>(portfolioDTO, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/category/{id}")
