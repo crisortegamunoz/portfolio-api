@@ -1,4 +1,4 @@
-package com.cristianortega.portfolio.persistence.entity;
+package com.cristianortega.portfolio.persistence.entity.security;
 
 import jakarta.persistence.*;
 import lombok.Getter;

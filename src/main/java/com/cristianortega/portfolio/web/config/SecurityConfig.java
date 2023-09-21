@@ -21,10 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final ApiKeyFilter apiKeyFilter;
 
     @Autowired
-    public SecurityConfig(JwtFilter  jwtFilter) {
+    public SecurityConfig(JwtFilter  jwtFilter, ApiKeyFilter apiKeyFilter) {
         this.jwtFilter = jwtFilter;
+        this.apiKeyFilter = apiKeyFilter;
     }
 
     @Bean
@@ -41,7 +43,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

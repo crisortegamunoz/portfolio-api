@@ -1,6 +1,7 @@
 package com.cristianortega.portfolio.web.controller;
 
 import com.cristianortega.portfolio.domain.dto.LoginDTO;
+import com.cristianortega.portfolio.service.security.ApiKeyService;
 import com.cristianortega.portfolio.web.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,10 +25,15 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final ApiKeyService apiKeyService;
+
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtUtil jwtUtil,
+                          ApiKeyService apiKeyService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.apiKeyService = apiKeyService;
     }
 
     @PostMapping("/login")
@@ -35,7 +42,11 @@ public class AuthController {
         Authentication authentication = this.authenticationManager.authenticate(login);
         if (authentication.isAuthenticated()) {
             final String JWT = this.jwtUtil.create(loginDTO.getUsername());
-            return new ResponseEntity<>(Collections.singletonMap("jwt", JWT), HttpStatus.OK);
+            final String API_KEY_CODE = this.apiKeyService.getApyKeyByUsername(loginDTO.getUsername());
+            Map<String, String> map = new HashMap<>(0);
+            map.put("jwt", JWT);
+            map.put("apiKey", API_KEY_CODE);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
         return ResponseEntity.badRequest().build();
     }
