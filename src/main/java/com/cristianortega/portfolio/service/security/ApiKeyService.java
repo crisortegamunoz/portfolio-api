@@ -1,6 +1,5 @@
 package com.cristianortega.portfolio.service.security;
 
-import com.cristianortega.portfolio.domain.mapper.AboutMapper;
 import com.cristianortega.portfolio.persistence.entity.security.ApiKey;
 import com.cristianortega.portfolio.persistence.repository.security.ApiKeyRepository;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ApiKeyService {
